@@ -1,0 +1,122 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mehendi Ceremony</title>
+
+<!-- Auto Redirect -->
+<script>
+setTimeout(function(){
+    window.location.href = "details";
+}, 6000);
+</script>
+
+<style>
+html, body{
+    margin:0;
+    padding:0;
+    height:100%;
+    font-family: 'Georgia', serif;
+    overflow:hidden;
+    color:white;
+}
+
+/* 🌿 Royal Mehendi Background */
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-image: url('<c:url value="/image/mehendi-bg.jpg"/>');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position:relative;
+}
+
+/* 🌸 Soft Green Overlay */
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(rgba(0,50,0,0.7), rgba(0,0,0,0.6));
+    z-index:0;
+}
+
+/* 💎 Glass Card */
+.container{
+    position:relative;
+    z-index:1;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    padding:50px 60px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 0 50px rgba(255,215,0,0.6);
+    animation: fadeZoom 2s ease;
+}
+
+@keyframes fadeZoom{
+    from{opacity:0; transform:scale(0.85);}
+    to{opacity:1; transform:scale(1);}
+}
+
+h1{
+    font-size:42px;
+    color:gold;
+    text-shadow:0 0 25px gold;
+}
+
+h2{
+    margin:12px 0;
+}
+
+.location{
+    margin-top:25px;
+    font-size:20px;
+    line-height:1.8;
+    color:#ffddaa;
+}
+
+/* ✨ Glowing Text */
+.glow{
+    animation: glowText 2s infinite alternate;
+}
+
+@keyframes glowText{
+    from{text-shadow:0 0 10px gold;}
+    to{text-shadow:0 0 30px #ffff99;}
+}
+
+/* 📱 Mobile */
+@media(max-width:600px){
+    .container{
+        padding:30px 20px;
+    }
+    h1{font-size:26px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="glow">🌿 Mehendi & Haldi Ceremony 🌿</h1>
+
+    <h2>📅 24 February 2026</h2>
+
+    <h2>📍 Venue</h2>
+
+    <div class="location">
+        Village Jagmal Bigha,<br>
+        Khusrupur, Patna, Bihar,<br>
+        NH-31
+    </div>
+
+</div>
+
+</body>
+</html>

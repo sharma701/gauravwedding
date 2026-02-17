@@ -1,0 +1,216 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
+<html>
+<head>
+<title>Grand Wedding Invitation</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Dancing+Script:wght@700&display=swap');
+
+body{
+    margin:0;
+    padding:0;
+    background: url('<c:url value="/images/love_bg.jpg"/>') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Playfair Display', serif;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Overlay */
+.overlay{
+    background: rgba(0,0,0,0.75);
+    min-height:100vh;
+    padding:60px 20px;
+    text-align:center;
+}
+
+/* Card */
+.card{
+    width:90%;
+    max-width:900px;
+    margin:auto;
+    padding:40px;
+    border-radius:30px;
+    background: rgba(255,215,0,0.08);
+    backdrop-filter: blur(10px);
+    box-shadow:0 0 40px rgba(255,215,0,0.6);
+}
+
+h1{
+    font-size:42px;
+    background: linear-gradient(45deg, gold, #ffcc00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.names{
+    font-family: 'Dancing Script', cursive;
+    font-size:50px;
+    margin:20px 0;
+    color:#ffd700;
+    text-shadow:0 0 20px gold;
+}
+
+.details{
+    font-size:20px;
+    margin-top:20px;
+    line-height:1.6;
+}
+
+.countdown{
+    margin-top:25px;
+    font-size:22px;
+    color:#ffeb3b;
+}
+
+video{
+    width:100%;
+    margin-top:30px;
+    border-radius:20px;
+    box-shadow:0 0 30px gold;
+}
+
+/* Play Button */
+.playBtn{
+    padding:15px 35px;
+    background:gold;
+    color:black;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+/* 🌸 Falling Flowers */
+.flower{
+    position:fixed;
+    top:-50px;
+    font-size:24px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform: translateY(110vh);
+    }
+}
+
+/* Fade */
+.fadeOut{
+    animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut{
+    from{opacity:1;}
+    to{opacity:0;}
+}
+
+/* 📱 Mobile Responsive */
+@media(max-width:600px){
+    h1{ font-size:28px; }
+    .names{ font-size:32px; }
+    .details{ font-size:16px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Audio (no autoplay) -->
+<audio id="bgMusic" loop>
+    <source src="<c:url value='/audio/love_song.mp3'/>" type="audio/mpeg">
+</audio>
+
+<div class="overlay" id="mainContent">
+    <div class="card">
+
+        <h1>💍 The Grand Wedding 💍</h1>
+
+        <div class="names">
+            Gaurav Sharma ❤️ Mini Kumari
+        </div>
+
+        <button class="playBtn" onclick="playMusic()">🎵 Play Music</button>
+
+        <div class="details">
+            📅 20 February 2026 <br><br>
+            📍 Village Narina,<br>
+            Fatuha, Patna, Bihar, NH-31 <br><br>
+            🕖 Baraat: 5:300 PM onwards
+        </div>
+
+        <div class="countdown">
+            ⏳ Countdown:
+            <div id="timer"></div>
+        </div>
+
+        <video controls>
+            <source src="<c:url value='/video/Wedding.mp4'/>" type="video/mp4">
+        </video>
+
+    </div>
+</div>
+
+<script>
+/* 🎵 Music after click */
+function playMusic(){
+    document.getElementById("bgMusic").play();
+}
+
+/* 🌸 Flower Animation */
+function createFlower(){
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+    flower.innerHTML = "🌸";
+    flower.style.left = Math.random() * window.innerWidth + "px";
+    flower.style.animationDuration = (3 + Math.random() * 5) + "s";
+    document.body.appendChild(flower);
+
+    setTimeout(() => {
+        flower.remove();
+    }, 8000);
+}
+setInterval(createFlower, 500);
+
+/* 🎬 Auto Cinematic Scroll */
+let scrollPosition = 0;
+function autoScroll(){
+    scrollPosition += 1;
+    window.scrollTo(0, scrollPosition);
+    if(scrollPosition < document.body.scrollHeight){
+        requestAnimationFrame(autoScroll);
+    }
+}
+setTimeout(autoScroll, 3000);
+
+/* Countdown */
+var weddingDate = new Date("Feb 20, 2026 19:00:00").getTime();
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = weddingDate - now;
+    var days = Math.floor(distance / (1000*60*60*24));
+    var hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    var minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+    var seconds = Math.floor((distance%(1000*60))/1000);
+
+    document.getElementById("timer").innerHTML =
+        days + "D " + hours + "H "
+        + minutes + "M " + seconds + "S";
+
+},1000);
+
+/* Fade & Redirect */
+setTimeout(function(){
+    document.getElementById("mainContent").classList.add("fadeOut");
+    setTimeout(function(){
+        window.location.href="wedding";
+    },3000);
+},30000);
+</script>
+
+</body>
+</html>

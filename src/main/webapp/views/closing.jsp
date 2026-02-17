@@ -1,0 +1,277 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wedding Finale</title>
+
+<style>
+html, body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    font-family: 'Georgia', serif;
+    color:white;
+}
+
+/* Background */
+body{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    background: linear-gradient(135deg,#1a001a,#330033,#000000);
+    overflow-y:auto;
+    padding:30px 0;
+}
+
+/* Center Container */
+.container{
+    width:90%;
+    max-width:850px;
+    text-align:center;
+    padding:40px;
+    border-radius:20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    box-shadow:0 0 40px rgba(255,215,0,0.4);
+}
+
+/* Heading */
+h1{
+    font-size:38px;
+    color:gold;
+    margin-bottom:10px;
+}
+
+h2{
+    margin:8px 0;
+}
+
+/* Thank You */
+.thanks{
+    margin-top:25px;
+    font-size:26px;
+    color:#ffccff;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{text-shadow:0 0 10px gold;}
+    to{text-shadow:0 0 25px pink;}
+}
+
+/* Family Section */
+.family{
+    margin-top:30px;
+    line-height:1.8;
+}
+
+.line{
+    opacity:0;
+    transform:translateY(20px);
+    transition:all 0.8s ease;
+}
+
+.line.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.highlight{
+    color:gold;
+    font-weight:bold;
+}
+
+/* Feedback Form */
+.feedback-box{
+    margin-top:40px;
+    padding:25px;
+    border-radius:15px;
+    background: rgba(0,0,0,0.35);
+    box-shadow:0 0 20px rgba(255,215,0,0.25);
+}
+
+.feedback-box h3{
+    color:gold;
+    margin-bottom:15px;
+}
+
+.feedback-box input, .feedback-box textarea{
+    width:90%;
+    max-width:600px;
+    padding:12px;
+    margin:8px 0;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    font-size:15px;
+}
+
+.feedback-box textarea{
+    height:100px;
+    resize:none;
+}
+
+.feedback-box button{
+    margin-top:12px;
+    padding:12px 30px;
+    background: gold;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    color:black;
+    transition:0.3s;
+}
+
+.feedback-box button:hover{
+    background: #ffcc00;
+    transform: scale(1.05);
+}
+
+.success-msg{
+    margin-top:10px;
+    color: #00ff99;
+    font-weight:bold;
+    display:none;
+}
+
+.error-msg{
+    margin-top:10px;
+    color: #ff6666;
+    font-weight:bold;
+    display:none;
+}
+
+/* Footer */
+.footer{
+    margin-top:35px;
+    font-size:14px;
+    opacity:0.7;
+}
+
+/* Responsive */
+@media(max-width:600px){
+    h1{font-size:26px;}
+    .container{padding:25px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>💍 Grand Wedding Ceremony 💍</h1>
+
+    <h2>Gaurav ❤️ Mini</h2>
+    <h2>📅 25 February 2026</h2>
+    <h2>📍 Village Narina, Fatuha, Patna, Bihar (NH-31)</h2>
+
+    <div class="thanks">
+        🙏 Thank You For Watching 🙏
+    </div>
+
+    <div class="family">
+        <div class="line">With blessings of our elders,</div>
+        <div class="line highlight">Sharma Family warmly welcomes you</div>
+        <div class="line">Mr. & Mrs. Upendra Chandra Bhaskar</div>
+        <div class="line">Mr. & Mrs. Koushlendra Chandra Bhaskar</div>
+        <div class="line">Mr. & Mrs. Omprakash Sharma & Punam Kumari</div>
+        <div class="line">Mr. & Mrs. Satyapal Sharma & Rupam Kumari</div>
+        <div class="line">Mr. & Mrs. Raj Kumar & Neha Kumari</div>
+        <div class="line">Mr. & Mrs. Deepak Kumar & Khusbu Kumari</div>
+        <div class="line">Mr. & Mrs. Saurav Kumar</div>
+        <div class="line">Mr. Harsh Raj, Adarsh, Ishan Raj, Rudraksha</div>
+        <div class="line">and the entire Sharma Parivaar</div>
+        <div class="line">We request your gracious presence</div>
+        <div class="line">to bless the couple on their new journey 💖</div>
+    </div>
+
+    <!-- ✅ Feedback Form Section -->
+    <div class="feedback-box">
+        <h3>📝 Leave Your Wishes / Comments</h3>
+
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <textarea id="comment" placeholder="Write your wishes / feedback..." required></textarea>
+
+        <button onclick="submitFeedback()">Send Wishes 💌</button>
+
+        <div class="success-msg" id="successMsg">✅ Thank you! Your message has been sent.</div>
+        <div class="error-msg" id="errorMsg">❌ Something went wrong. Please try again.</div>
+    </div>
+
+    <div class="footer">
+        Site Designed & Developed by <b>Gaurav Kumar</b> ❤️
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const lines = document.querySelectorAll(".line");
+    let i = 0;
+
+    function showNextLine(){
+        if(i < lines.length){
+            lines[i].classList.add("show");
+            i++;
+            setTimeout(showNextLine, 1500);
+        }
+    }
+
+    showNextLine();
+});
+
+// ✅ Feedback Form API Call
+function submitFeedback(){
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const comment = document.getElementById("comment").value.trim();
+
+    const successMsg = document.getElementById("successMsg");
+    const errorMsg = document.getElementById("errorMsg");
+
+    successMsg.style.display = "none";
+    errorMsg.style.display = "none";
+
+    if(name === "" || email === "" || comment === ""){
+        errorMsg.innerHTML = "❌ Please fill all details.";
+        errorMsg.style.display = "block";
+        return;
+    }
+
+    fetch("<%= request.getContextPath() %>/api/feedback", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            comment: comment
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        successMsg.style.display = "block";
+
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("comment").value = "";
+    })
+    .catch(error => {
+        console.error(error);
+        errorMsg.innerHTML = "❌ Something went wrong. Please try again.";
+        errorMsg.style.display = "block";
+    });
+}
+</script>
+
+</body>
+</html>

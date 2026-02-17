@@ -1,0 +1,286 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
+<html>
+<head>
+<title>Grand Wedding Celebration</title>
+
+<style>
+html, body{
+    margin:0;
+    padding:0;
+    height:100%;
+    background:black;
+    color:white;
+    font-family:Georgia, serif;
+    text-align:center;
+    overflow:hidden;
+}
+
+/* 🎬 Intro Screen */
+#introScreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    color:gold;
+    font-size:80px;
+    text-shadow:0 0 30px gold;
+}
+
+/* 🎆 Fireworks Canvas Background */
+#fireworks{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+
+/* Main Content Above Canvas */
+#mainContent{
+    position:relative;
+    z-index:2;
+    display:none;
+}
+
+/* Bride & Groom Entry */
+.couple{
+    display:flex;
+    justify-content:center;
+    gap:100px;
+    margin-top:150px;
+    opacity:0;
+    transition: all 2s ease;
+}
+
+.bride, .groom{
+    font-size:70px;
+    opacity:0;
+}
+
+.bride{ transform:translateX(-200px); }
+.groom{ transform:translateX(200px); }
+
+.show .bride{
+    transform:translateX(0);
+    opacity:1;
+}
+.show .groom{
+    transform:translateX(0);
+    opacity:1;
+}
+.show{ opacity:1; }
+
+h1{
+    font-size:40px;
+    color:gold;
+    text-shadow:0 0 20px gold;
+    margin-top:30px;
+}
+
+/* Celebrate Button */
+.celebrateBtn{
+    margin-top:40px;
+    padding:15px 40px;
+    font-size:20px;
+    background:gold;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    box-shadow:0 0 20px gold;
+}
+
+/* Floating Diyas */
+@keyframes floatUp{
+    to{
+        transform:translateY(-110vh);
+        opacity:0;
+    }
+}
+
+/* Responsive */
+@media(max-width:600px){
+    .bride,.groom{ font-size:40px; }
+    h1{ font-size:22px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎬 Countdown Intro -->
+<div id="introScreen">
+    <div id="countText">3</div>
+</div>
+
+<!-- 🎆 Fireworks Canvas -->
+<canvas id="fireworks"></canvas>
+
+<!-- Main Content -->
+<div id="mainContent">
+
+    <div class="couple" id="couple">
+        <div class="bride">👰</div>
+        <div class="groom">🤵</div>
+    </div>
+
+    <h1 style="font-size:60px; font-weight:bold;">💍 Gaurav Sharma ❤️ Mini Kumari 💍</h1>
+
+    <button class="celebrateBtn" onclick="startCelebration()">
+        🎉 Celebrate 🎉
+    </button>
+
+    <div style="margin-top:40px; font-size:20px;">
+        🌸 Thank You For Being Part Of Our Celebration 🌸 <br><br>
+        Sharma Family Welcomes You 🙏
+    </div>
+
+</div>
+
+<script>
+
+/* 🎬 Trailer Countdown */
+let count = 3;
+let intro = document.getElementById("introScreen");
+let text = document.getElementById("countText");
+
+let countdown = setInterval(function(){
+    count--;
+    if(count > 0){
+        text.innerHTML = count;
+    }else if(count === 0){
+        text.innerHTML = "Grand Wedding";
+    }else{
+        clearInterval(countdown);
+        intro.style.display = "none";
+        document.getElementById("mainContent").style.display="block";
+        setTimeout(()=>{ 
+            document.getElementById("couple").classList.add("show");
+        },500);
+    }
+},1000);
+
+
+/* 🎆 Fireworks System */
+var canvas = document.getElementById("fireworks");
+var ctx = canvas.getContext("2d");
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+var particles=[];
+var fireworksActive=false;
+
+function Particle(x,y,color){
+    this.x=x;
+    this.y=y;
+    this.radius=2;
+    this.color=color;
+    this.speedX=(Math.random()-0.5)*6;
+    this.speedY=(Math.random()-0.5)*6;
+    this.alpha=1;
+}
+
+Particle.prototype.update=function(){
+    this.x+=this.speedX;
+    this.y+=this.speedY;
+    this.alpha-=0.02;
+}
+
+Particle.prototype.draw=function(){
+    ctx.globalAlpha=this.alpha;
+    ctx.fillStyle=this.color;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+    ctx.fill();
+}
+
+function createFirework(){
+    let x=Math.random()*canvas.width;
+    let y=Math.random()*canvas.height/2;
+    let color="hsl("+Math.random()*360+",100%,50%)";
+
+    for(let i=0;i<80;i++){
+        particles.push(new Particle(x,y,color));
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,index)=>{
+        p.update();
+        p.draw();
+        if(p.alpha<=0){
+            particles.splice(index,1);
+        }
+    });
+    if(fireworksActive){
+        requestAnimationFrame(animate);
+    }
+}
+
+/* 🎉 Celebration + Redirect */
+let fireworksInterval;
+
+function startCelebration(){
+    fireworksActive=true;
+    animate();
+    fireworksInterval=setInterval(createFirework,1000);
+
+    setTimeout(function(){
+        clearInterval(fireworksInterval);
+        fireworksActive=false;
+        window.location.href="closing";
+    },15000);
+}
+
+
+/* 🪔 Floating Diyas */
+function createDiya(){
+    const diya=document.createElement("div");
+    diya.innerHTML="🪔";
+    diya.style.position="fixed";
+    diya.style.bottom="-50px";
+    diya.style.left=Math.random()*window.innerWidth+"px";
+    diya.style.fontSize="30px";
+    diya.style.animation="floatUp 8s linear";
+    document.body.appendChild(diya);
+    setTimeout(()=>{ diya.remove(); },8000);
+}
+setInterval(createDiya,2000);
+
+
+/* ✨ Sparkles */
+function sparkle(){
+    const star=document.createElement("div");
+    star.innerHTML="✨";
+    star.style.position="fixed";
+    star.style.left=Math.random()*window.innerWidth+"px";
+    star.style.top=Math.random()*window.innerHeight+"px";
+    star.style.fontSize="15px";
+    star.style.opacity=Math.random();
+    document.body.appendChild(star);
+    setTimeout(()=>{ star.remove(); },1000);
+}
+setInterval(sparkle,100);
+setTimeout(function(){
+    window.location.href = "<c:url value='/closing'/>";
+},10000);
+
+</script>
+
+</body>
+</html>

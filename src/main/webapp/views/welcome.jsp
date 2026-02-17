@@ -1,0 +1,105 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+ <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<html>
+<head>
+    <title>Welcome</title>
+    <style>
+        /* Body background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            background: url('<c:url value="/image/bg_wedding.jpg"/>') no-repeat center center;
+            background-size: cover;
+            text-align: center;
+            color: #5c0d0d;
+        }
+
+        /* Ganesh image */
+        .ganesh-img {
+            width: 180px;
+            margin-top: 30px;
+        }
+
+        /* Decorative flowers/borders */
+        .border-decor {
+            width: 80%;
+            margin: 20px auto;
+            border: 5px solid #f4c2c2;
+            border-radius: 25px;
+            padding: 20px;
+            background-color: rgba(255, 248, 220, 0.7); /* translucent */
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        /* Stylish button */
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Flower decorations */
+        .flower {
+            width: 60px;
+            margin: 10px;
+        }
+
+        .flowers-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Ganesh Ji -->
+    <img class="ganesh-img" src="<c:url value='/image/ganesh.png'/>" alt="Ganesh Ji">
+
+    <!-- Flowers top -->
+    <div class="flowers-row">
+        <img class="flower" src="<c:url value='/image/flower1.png'/>" alt="Flower">
+        <img class="flower" src="<c:url value='/image/flower2.png'/>" alt="Flower">
+        <img class="flower" src="<c:url value='/image/flower3.png'/>" alt="Flower">
+    </div>
+
+    <!-- Welcome Box with border -->
+    <div class="border-decor">
+        <h1>Welcome, ${guestName} ❤️</h1>
+        <p>We are delighted to have you on our special day!</p>
+
+        <!-- <a href="details">
+            <button class="btn">See Wedding Details</button>
+        </a> -->
+        <a href="functions">
+    <button class="btn">See Wedding Functions</button>
+    </a>
+        
+        
+    </div>
+
+    <!-- Flowers bottom -->
+    <div class="flowers-row">
+        <img class="flower" src="<c:url value='/image/flower1.png'/>" alt="Flower">
+        <img class="flower" src="<c:url value='/image/flower2.png'/>" alt="Flower">
+        <img class="flower" src="<c:url value='/image/flower3.png'/>" alt="Flower">
+    </div>
+
+</body>
+</html>
