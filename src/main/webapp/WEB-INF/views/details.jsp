@@ -137,10 +137,10 @@ video{
         <button class="playBtn" onclick="playMusic()">🎵 Play Music</button>
 
         <div class="details">
-            📅 20 February 2026 <br><br>
+            📅 25 February 2026 <br><br>
             📍 Village Narina,<br>
             Fatuha, Patna, Bihar, NH-31 <br><br>
-            🕖 Baraat: 5:300 PM onwards
+            🕖 Baraat: 5:30 PM onwards
         </div>
 
         <div class="countdown">
@@ -188,7 +188,7 @@ function autoScroll(){
 setTimeout(autoScroll, 3000);
 
 /* Countdown */
-var weddingDate = new Date("Feb 20, 2026 19:00:00").getTime();
+var weddingDate = new Date("Feb 25, 2026 19:00:00").getTime();
 var x = setInterval(function() {
     var now = new Date().getTime();
     var distance = weddingDate - now;
