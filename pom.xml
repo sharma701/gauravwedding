@@ -1,124 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.10</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
+
 	<groupId>com.example.ai</groupId>
 	<artifactId>01-SpringBoot-AI-2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+
+	<!-- ✅ IMPORTANT for JSP Hosting -->
+	<packaging>war</packaging>
 
 	<name>01-SpringBoot-AI-2</name>
 	<description>springboot AI marraigee</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+
 	<properties>
 		<java.version>17</java.version>
-		
 	</properties>
+
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+
+		<!-- Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<!--<dependency>
-			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-starter-model-openai</artifactId>
-		</dependency-->
-      
-<dependency>
-    <groupId>jakarta.servlet.jsp.jstl</groupId>
-    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-</dependency>
 
-<dependency>
-    <groupId>org.glassfish.web</groupId>
-    <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-</dependency>
- <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-mail</artifactId>
-</dependency>
-    <dependency>
-        <groupId>org.postgresql</groupId>
-        <artifactId>postgresql</artifactId>
-        <scope>runtime</scope>
-    </dependency>
-  <dependency>
-    <groupId>org.apache.tomcat.embed</groupId>
-    <artifactId>tomcat-embed-jasper</artifactId>
-    <scope>compile</scope>
+		<!-- Mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 
-</dependency>
-<dependency>
-    <groupId>jakarta.servlet.jsp.jstl</groupId>
-    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-</dependency>
+		<!-- PostgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
-<dependency>
-    <groupId>org.glassfish.web</groupId>
-    <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-</dependency>
+		<!-- JSP Support -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+		</dependency>
+
+		<!-- DevTools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- H2 (optional, can remove later) -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
-	<!--<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.ai</groupId>
-				<artifactId>spring-ai-bom</artifactId>
-				<version>${spring-ai.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>-->
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -131,18 +116,12 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 
