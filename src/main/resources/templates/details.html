@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
-
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Grand Wedding Invitation</title>
 
@@ -12,7 +9,7 @@
 body{
     margin:0;
     padding:0;
-    background: url('<c:url value="/images/love_bg.jpg"/>') no-repeat center center fixed;
+    background: url('/images/love_bg.jpg') no-repeat center center fixed;
     background-size: cover;
     font-family: 'Playfair Display', serif;
     color:white;
@@ -122,7 +119,7 @@ video{
 
 <!-- Audio (no autoplay) -->
 <audio id="bgMusic" loop>
-    <source src="<c:url value='/audio/love_song.mp3'/>" type="audio/mpeg">
+    <source th:src="@{/audio/love_song.mp3}" type="audio/mpeg">
 </audio>
 
 <div class="overlay" id="mainContent">
@@ -138,7 +135,7 @@ video{
 
         <div class="details">
             📅 25 February 2026 <br><br>
-            📍 Village Narina,<br>
+            📍 Village Nariana,<br>
             Fatuha, Patna, Bihar, NH-31 <br><br>
             🕖 Baraat: 5:30 PM onwards
         </div>
@@ -149,7 +146,7 @@ video{
         </div>
 
         <video controls>
-            <source src="<c:url value='/video/Wedding.mp4'/>" type="video/mp4">
+            <source th:src="@{/video/Wedding.mp4}" type="video/mp4">
         </video>
 
     </div>

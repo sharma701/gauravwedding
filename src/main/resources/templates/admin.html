@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+
+<h2>📊 Visitors List</h2>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Visit Time</th>
+    </tr>
+
+    <tr th:each="guest : ${guests}">
+        <td th:text="${guest.id}"></td>
+        <td th:text="${guest.name}"></td>
+        <td th:text="${guest.visitTime}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

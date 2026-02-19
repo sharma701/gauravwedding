@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
-
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Grand Wedding Celebration</title>
 
@@ -243,7 +240,7 @@ function startCelebration(){
     setTimeout(function(){
         clearInterval(fireworksInterval);
         fireworksActive=false;
-        window.location.href="closing";
+        window.location.href="/closing";
     },15000);
 }
 
@@ -276,8 +273,10 @@ function sparkle(){
     setTimeout(()=>{ star.remove(); },1000);
 }
 setInterval(sparkle,100);
+
+/* Auto Redirect */
 setTimeout(function(){
-    window.location.href = "<c:url value='/closing'/>";
+    window.location.href = "/closing";
 },10000);
 
 </script>

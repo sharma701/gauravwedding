@@ -1,15 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
- <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Welcome</title>
+
     <style>
         /* Body background */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Georgia', serif;
-            background: url('<c:url value="/image/bg_wedding.jpg"/>') no-repeat center center;
+            background: url('/image/bg_wedding.jpg') no-repeat center center;
             background-size: cover;
             text-align: center;
             color: #5c0d0d;
@@ -64,41 +64,36 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-
     </style>
 </head>
+
 <body>
 
     <!-- Ganesh Ji -->
-    <img class="ganesh-img" src="<c:url value='/image/ganesh.png'/>" alt="Ganesh Ji">
+    <img class="ganesh-img" th:src="@{/image/ganesh.png}" alt="Ganesh Ji">
 
     <!-- Flowers top -->
     <div class="flowers-row">
-        <img class="flower" src="<c:url value='/image/flower1.png'/>" alt="Flower">
-        <img class="flower" src="<c:url value='/image/flower2.png'/>" alt="Flower">
-        <img class="flower" src="<c:url value='/image/flower3.png'/>" alt="Flower">
+        <img class="flower" th:src="@{/image/flower1.png}" alt="Flower">
+        <img class="flower" th:src="@{/image/flower2.png}" alt="Flower">
+        <img class="flower" th:src="@{/image/flower3.png}" alt="Flower">
     </div>
 
     <!-- Welcome Box with border -->
     <div class="border-decor">
-        <h1>Welcome, ${guestName} ❤️</h1>
+        <h1>Welcome, <span th:text="${guestName}">Guest</span> ❤️</h1>
         <p>We are delighted to have you on our special day!</p>
 
-        <!-- <a href="details">
-            <button class="btn">See Wedding Details</button>
-        </a> -->
-        <a href="functions">
-    <button class="btn">See Wedding Functions</button>
-    </a>
-        
-        
+        <a th:href="@{/functions}">
+            <button class="btn">See Wedding Functions</button>
+        </a>
     </div>
 
     <!-- Flowers bottom -->
     <div class="flowers-row">
-        <img class="flower" src="<c:url value='/image/flower1.png'/>" alt="Flower">
-        <img class="flower" src="<c:url value='/image/flower2.png'/>" alt="Flower">
-        <img class="flower" src="<c:url value='/image/flower3.png'/>" alt="Flower">
+        <img class="flower" th:src="@{/image/flower1.png}" alt="Flower">
+        <img class="flower" th:src="@{/image/flower2.png}" alt="Flower">
+        <img class="flower" th:src="@{/image/flower3.png}" alt="Flower">
     </div>
 
 </body>
